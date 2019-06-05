@@ -1,0 +1,23 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: php-apache
+  namespace: default
+spec:
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+   - type: Object
+     object:
+      describedObject:
+        kind: service
+        name: prom-fake
+      metric:
+        name: zz_test
+      target:
+        type: Value
+        value: 10
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: php-apache

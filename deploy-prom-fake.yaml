@@ -1,0 +1,34 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prom-fake
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: prom-fake
+  template:
+    metadata:
+      labels:
+        app: prom-fake
+    spec:
+      containers:
+      - name: prom-fake
+        image: hpatest.azurecr.io/prom-fake # <== change this to your registry name
+        ports:
+        - name: web
+          containerPort: 8080
+---
+kind: Service
+apiVersion: v1
+metadata:
+  name: prom-fake
+  labels:
+    app: prom-fake
+spec:
+  selector:
+    app: prom-fake
+  ports:
+  - name: web
+    port: 8080
+  type: LoadBalancer

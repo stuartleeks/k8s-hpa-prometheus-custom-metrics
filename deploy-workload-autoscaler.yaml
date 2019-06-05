@@ -1,0 +1,23 @@
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: nginx
+  namespace: default
+spec:
+  maxReplicas: 10
+  metrics:
+   - type: Object
+     object:
+      describedObject:
+        kind: service
+        name: prom-fake # <== this references the service that is exposing the metric
+      metric:
+        name: prom_fake_value # <== this is the name of the metric to use for scaling
+      target:
+        type: Value
+        value: 10
+  minReplicas: 1
+  scaleTargetRef:
+    apiVersion: extensions/v1beta1
+    kind: Deployment
+    name: nginx
