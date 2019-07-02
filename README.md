@@ -4,7 +4,7 @@ This repo provides a walkthrough for setting up a Kubernetes deployment scaled o
 
 A typical scenario for this would be to scale a deployment that is processing messages from a queue based on the queue depth. To keep the walkthrough simple we will use a custom metric source instead of a real queue - this lets us avoid have to script adding messages from the queue and processing them, but it should still be clear how to extend this walkthrough to a real scenario.
 
-## Walktroughs
+## Walkthroughs
 
 * [Single namespace for Prometheus and application](./single-namespace.md)
 * [Separate namespace for Prometheus and application](./separate-namespaces.md)
