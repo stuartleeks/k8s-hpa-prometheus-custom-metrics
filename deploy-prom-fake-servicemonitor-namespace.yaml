@@ -1,0 +1,16 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  name: prom-fake
+  labels:
+    prometheus-instance: prometheus1
+spec:
+  selector:
+    matchLabels:
+      app: prom-fake
+  namespaceSelector:
+    matchNames:
+    - default
+  endpoints:
+  - port: web
+    interval: 5s
